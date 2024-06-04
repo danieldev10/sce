@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Details</title>
+</head>
+
+<body>
+    <h1>Evaluation Details</h1>
+    <div>
+        <p><strong>Student Name:</strong> <span th:text="${evaluation.studentName}"></span></p>
+        <p><strong>Instructor Name:</strong> <span th:text="${evaluation.instructorName}"></span></p>
+        <p><strong>Course Code:</strong> <span th:text="${evaluation.courseCode}"></span></p>
+        <p><strong>Semester:</strong> <span th:text="${evaluation.currentSemester}"></span></p>
+        <p><strong>Year:</strong> <span th:text="${evaluation.currentYear}"></span></p>
+        <!-- Add more fields as needed -->
+    </div>
+    <hr>
+    <h2>Descriptive Statistics</h2>
+    <div>
+        <p><strong>Attendance:</strong> <span th:text="${evaluation.attendance}"></span></p>
+        <p><strong>General Participation:</strong> <span th:text="${evaluation.generalParticipation}"></span></p>
+    </div>
+</body>
+
+</html>

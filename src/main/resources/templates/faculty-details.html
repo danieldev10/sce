@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Details</title>
+</head>
+
+<body>
+    <h1 th:text="${faculty.firstname + ' ' + faculty.lastname}"></h1>
+    <h2>Courses Taught</h2>
+    <ul>
+        <li th:each="course : ${courses}" th:text="${course.courseCode + ' - ' + course.courseName}"></li>
+    </ul>
+    <h2>Evaluations</h2>
+    <ul>
+        <li th:each="evaluation : ${evaluations}" th:text="${evaluation.studentName}"></li>
+    </ul>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Course Code</th>
+                <th>Semester</th>
+                <th>Year</th>
+                <th>Student Name</th>
+                <th>Attendance</th>
+                <th>General Participation</th>
+                <th>Attitude</th>
+                <th>Preparedness</th>
+                <th>Leaving Class</th>
+                <th>Willingness to Learn</th>
+                <th>Expected Grade</th>
+                <th>Require Attention</th>
+                <th>Additional Comment</th>
+                <!-- Add more headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="evaluation : ${evaluations}">
+                <td th:text="${evaluation.courseCode}"></td>
+                <td th:text="${evaluation.currentSemester}"></td>
+                <td th:text="${evaluation.currentYear}"></td>
+                <td th:text="${evaluation.studentName}"></td>
+                <td th:text="${evaluation.attendance}"></td>
+                <td th:text="${evaluation.generalParticipation}"></td>
+                <td th:text="${evaluation.generalAttitude}"></td>
+                <td th:text="${evaluation.preparedness}"></td>
+                <td th:text="${evaluation.leavingClass}"></td>
+                <td th:text="${evaluation.willingnessToLearn}"></td>
+                <td th:text="${evaluation.currentGrade}"></td>
+                <td th:text="${evaluation.attention}"></td>
+                <td th:text="${evaluation.comment}"></td>
+                <!-- Add more columns as needed -->
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

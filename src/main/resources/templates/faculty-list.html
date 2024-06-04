@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty List</title>
+</head>
+
+<body>
+    <h1>Faculty List</h1>
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+        <tr th:each="faculty : ${facultyList}">
+            <td th:text="${faculty.firstname}"></td>
+            <td th:text="${faculty.lastname}"></td>
+            <td th:text="${faculty.email}"></td>
+            <td><a th:href="@{/admin/faculty/{id}(id=${faculty.user_id})}">View Details</a></td>
+        </tr>
+    </table>
+</body>
+
+</html>

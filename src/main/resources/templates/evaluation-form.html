@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords"
+        content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="/assets/img/icons/icon-48x48.png" />
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io" />
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <title>Faculty - Evaluations</title>
+
+    <link href="/assets/css/app.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+            <div class="sidebar-content js-simplebar">
+                <a class="sidebar-brand" href="index.html">
+                    <span class="align-middle">AUN Student Evaluation</span>
+                </a>
+
+                <ul class="sidebar-nav">
+
+                    <li class="sidebar-item active">
+                        <a class="sidebar-link" th:href="@{/faculty/index}">
+                            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Evaluation
+                                Requests </span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" th:href="@{/faculty/courses}">
+                            <i class="align-middle" data-feather="align-left"></i> <span
+                                class="align-middle">Classes</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" th:href="@{/logout}"
+                            onclick="return confirm('Are you sure you want to logout?')">
+                            <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Logout</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav navbar-align">
+                        <li class="nav-item dropdown">
+                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+                                data-bs-toggle="dropdown">
+                                <i class="align-middle" data-feather="settings"></i>
+                            </a>
+
+                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                                data-bs-toggle="dropdown"><span class="text-dark"
+                                    th:text="${firstName} + ' ' + ${lastName}"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" th:href="@{/logout}"
+                                    onclick="return confirm('Are you sure you want to logout?')">Log out <span><i
+                                            data-feather="log-in"></i></span></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="content">
+                <div class="container-fluid p-0">
+                    <form class="row g-3" th:action="@{/faculty/submit-evaluation}" method="post">
+                        <div class="row">
+                            <div>
+                                <input type="hidden" name="instructorId" th:value="${instructorId}">
+                            </div>
+                            <div>
+                                <input type="hidden" name="courseId" th:value="${courseId}">
+                            </div>
+                            <div>
+                                <input type="hidden" name="facultyCourseStudentId" th:value="${facultyCourseStudentId}">
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"></h5>
+                                        <div class="row">
+                                            <div class="col-md-6" style="margin-bottom: 14px;">
+                                                <label for="inputName5" class="form-label">Instructor Name</label>
+                                                <input type="text" class="form-control" id="inputName5"
+                                                    name="instructorName"
+                                                    th:value="${instructorFirstName} + ' ' + ${instructorLastName}"
+                                                    readonly>
+                                            </div>
+                                            <div class="col-md-6" style="margin-bottom: 14px;">
+                                                <label for="inputEmail5" class="form-label">Course Code</label>
+                                                <input type="text" class="form-control" id="inputEmail5"
+                                                    name="courseCode" th:value="${courseCode}" readonly>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: 10px;">
+                                                <label for="inputPassword5" class="form-label">Student ID</label>
+                                                <input type="text" class="form-control" id="text" name="studentId"
+                                                    th:value="${studentId}" readonly>
+                                            </div>
+                                            <div class="col-6" style="margin-top: 10px;">
+                                                <label for="inputAddress5" class="form-label">Student Name</label>
+                                                <input type="text" class="form-control" id="inputAddres5s"
+                                                    name="studentName"
+                                                    th:value="${studentFirstName}  + ' ' + ${studentLastName}" readonly>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: 25px;">
+                                                <label for="inputEmail5" class="form-label">Semester</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="currentSemester" value="Fall">
+                                                            <span class="form-check-label">
+                                                                Fall
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="currentSemester" value="Spring">
+                                                            <span class=" form-check-label">
+                                                                Spring
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="currentSemester" value="Summer">
+                                                            <span class="form-check-label">
+                                                                Summer
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: 25px;">
+                                                <label for="inputEmail5" class="form-label">Year</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="currentYear" value="2023" required>
+                                                            <span class="form-check-label">
+                                                                2023
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="currentYear" value="2024" required>
+                                                            <span class=" form-check-label">
+                                                                2024
+                                                            </span>
+                                                        </label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            Attendance/Participation/Attitude
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label for="inputEmail5" class="form-label">Attendance</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="attendance" value="Poor">
+                                                            <span class="form-check-label">
+                                                                Poor (Below 69%)
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="attendance" value="Satisfactory">
+                                                            <span class=" form-check-label">
+                                                                Satisfactory
+                                                                (70-79%)
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="attendance" value="Very Good">
+                                                            <span class="form-check-label">
+                                                                Very Good (80-90)%
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="attendance" value="Excellent">
+                                                            <span class="form-check-label">
+                                                                Excellent (90-100%)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputEmail5" class="form-label">General
+                                                    participation</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="generalParticipation" value="Poor">
+                                                            <span class="form-check-label">
+                                                                Poor (Below 69%)
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="generalParticipation" value="Satisfactory">
+                                                            <span class=" form-check-label">
+                                                                Satisfactory
+                                                                (70-79%)
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="generalParticipation" value="Very Good">
+                                                            <span class="form-check-label">
+                                                                Very Good (80-90)%
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="generalParticipation" value="Excellent">
+                                                            <span class="form-check-label">
+                                                                Excellent (90-100%)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: 20px;">
+                                                <label for="inputEmail5" class="form-label">General Attitude to
+                                                    Learning</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="generalAttitude" value="Poor">
+                                                            <span class="form-check-label">
+                                                                Poor (Below 69%)
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="generalAttitude" value="Satisfactory">
+                                                            <span class=" form-check-label">
+                                                                Satisfactory
+                                                                (70-79%)
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="generalAttitude" value="Very Good">
+                                                            <span class="form-check-label">
+                                                                Very Good (80-90)%
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="generalAttitude" value="Excellent">
+                                                            <span class="form-check-label">
+                                                                Excellent (90-100%)
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            Attitude and Responsiveness to Learning
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <label for="inputEmail5" class="form-label">Student comes prepared to
+                                                    class and maintains a positive attitude and eagerness to
+                                                    learn.</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="preparedness" value="Strongly Disagree">
+                                                            <span class="form-check-label">
+                                                                Strongly Disagree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="preparedness" value="Disagree">
+                                                            <span class=" form-check-label">
+                                                                Disagree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="preparedness" value="Neutral">
+                                                            <span class="form-check-label">
+                                                                Neutral
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="preparedness" value="Agree">
+                                                            <span class="form-check-label">
+                                                                Agree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="preparedness" value="Strongly Agree">
+                                                            <span class="form-check-label">
+                                                                Strongly Agree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="preparedness" value="Not Applicable">
+                                                            <span class="form-check-label">
+                                                                Not Applicable
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="inputEmail5" class="form-label">Student leaves during class
+                                                    and may or may not return.</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="leavingClass" value="Strongly Disagree">
+                                                            <span class="form-check-label">
+                                                                Strongly Disagree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="leavingClass" value="Disagree">
+                                                            <span class=" form-check-label">
+                                                                Disagree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="leavingClass" value="Neutral">
+                                                            <span class="form-check-label">
+                                                                Neutral
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="leavingClass" value="Agree">
+                                                            <span class="form-check-label">
+                                                                Agree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="leavingClass" value="Strongly Agree">
+                                                            <span class="form-check-label">
+                                                                Strongly Agree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="leavingClass" value="Not Applicable">
+                                                            <span class="form-check-label">
+                                                                Not Applicable
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: 20px;">
+                                                <label for="inputEmail5" class="form-label">Student answers questions
+                                                    and contributes to class discussion.</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="participation" value="Strongly Disagree">
+                                                            <span class="form-check-label">
+                                                                Strongly Disagree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="participation" value="Disagree">
+                                                            <span class=" form-check-label">
+                                                                Disagree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="participation" value="Neutral">
+                                                            <span class="form-check-label">
+                                                                Neutral
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="participation" value="Agree">
+                                                            <span class="form-check-label">
+                                                                Agree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="participation" value="Strongly Agree">
+                                                            <span class="form-check-label">
+                                                                Strongly Agree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="participation" value="Not Applicable">
+                                                            <span class="form-check-label">
+                                                                Not Applicable
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6" style="margin-top: 20px;">
+                                                <label for="inputEmail5" class="form-label">Student shows willingness to
+                                                    learn.</label>
+                                                <div>
+                                                    <div>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="willingnessToLearn" value="Strongly Disagree">
+                                                            <span class="form-check-label">
+                                                                Strongly Disagree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="willingnessToLearn" value="Disagree">
+                                                            <span class=" form-check-label">
+                                                                Disagree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="willingnessToLearn" value="Neutral">
+                                                            <span class="form-check-label">
+                                                                Neutral
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="willingnessToLearn" value="Agree">
+                                                            <span class="form-check-label">
+                                                                Agree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="willingnessToLearn" value="Strongly Agree">
+                                                            <span class="form-check-label">
+                                                                Strongly Agree
+                                                            </span>
+                                                        </label>
+                                                        <label class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="willingnessToLearn" value="Not Applicable">
+                                                            <span class="form-check-label">
+                                                                Not Applicable
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            Current (Anticipated) Grade
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <select class="form-select mb-3" name="currentGrade" required>
+                                                    <option selected>Select Grade</option>
+                                                    <option value="A">A</option>
+                                                    <option value="A-">A-</option>
+                                                    <option value="B+">B+</option>
+                                                    <option value="B">B</option>
+                                                    <option value="B-">B-</option>
+                                                    <option value="C+">C+</option>
+                                                    <option value="C">C</option>
+                                                    <option value="D">D</option>
+                                                    <option value="F">F</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            Does this student require immediate attention from our office?
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div style="margin-top: 3px;">
+                                                    <label class="form-check">
+                                                        <input class="form-check-input" type="radio" name="attention"
+                                                            value="Yes">
+                                                        <span class="form-check-label">
+                                                            Yes
+                                                        </span>
+                                                    </label>
+                                                    <label class="form-check">
+                                                        <input class="form-check-input" type="radio" name="attention"
+                                                            value="No">
+                                                        <span class=" form-check-label">
+                                                            No
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title mb-0">Additional Comment</h5>
+                                    </div>
+                                    <div class="card-body" style="margin-top: -10px;">
+                                        <textarea class="form-control" rows="2" name="comment" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <center>
+                            <input type="submit" class="btn btn-primary" value="Submit Evaluation">
+                        </center>
+                    </form>
+
+                </div>
+            </main>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0">
+                                <a class="text-muted" target="_blank"><strong>OSES</strong></a> - <a class="text-muted"
+                                    target="_blank"><strong>American University of Nigeria</strong></a> &copy;
+                            </p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/assets/js/app.js"></script>
+    <script>
+        document.getElementById('datatable-search-input').addEventListener('input', function (e) {
+            const searchValue = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#evaluation-table tbody tr');
+
+            rows.forEach(row => {
+                let found = false;
+                row.querySelectorAll('td').forEach(cell => {
+                    if (cell.textContent.toLowerCase().includes(searchValue)) {
+                        found = true;
+                    }
+                });
+                if (found) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+            var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+            gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+            gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+            // Line chart
+            new Chart(document.getElementById("chartjs-dashboard-line"), {
+                type: "line",
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    datasets: [{
+                        label: "Sales ($)",
+                        fill: true,
+                        backgroundColor: gradient,
+                        borderColor: window.theme.primary,
+                        data: [
+                            2115,
+                            1562,
+                            1584,
+                            1892,
+                            1587,
+                            1923,
+                            2566,
+                            2448,
+                            2805,
+                            3438,
+                            2917,
+                            3327
+                        ]
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        intersect: false
+                    },
+                    hover: {
+                        intersect: true
+                    },
+                    plugins: {
+                        filler: {
+                            propagate: false
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            reverse: true,
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                stepSize: 1000
+                            },
+                            display: true,
+                            borderDash: [3, 3],
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Pie chart
+            new Chart(document.getElementById("chartjs-dashboard-pie"), {
+                type: "pie",
+                data: {
+                    labels: ["Chrome", "Firefox", "IE"],
+                    datasets: [{
+                        data: [4306, 3801, 1689],
+                        backgroundColor: [
+                            window.theme.primary,
+                            window.theme.warning,
+                            window.theme.danger
+                        ],
+                        borderWidth: 5
+                    }]
+                },
+                options: {
+                    responsive: !window.MSInputMethodContext,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 75
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Bar chart
+            new Chart(document.getElementById("chartjs-dashboard-bar"), {
+                type: "bar",
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                    datasets: [{
+                        label: "This year",
+                        backgroundColor: window.theme.primary,
+                        borderColor: window.theme.primary,
+                        hoverBackgroundColor: window.theme.primary,
+                        hoverBorderColor: window.theme.primary,
+                        data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                        barPercentage: .75,
+                        categoryPercentage: .5
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                display: false
+                            },
+                            stacked: false,
+                            ticks: {
+                                stepSize: 20
+                            }
+                        }],
+                        xAxes: [{
+                            stacked: false,
+                            gridLines: {
+                                color: "transparent"
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var markers = [{
+                coords: [31.230391, 121.473701],
+                name: "Shanghai"
+            },
+            {
+                coords: [28.704060, 77.102493],
+                name: "Delhi"
+            },
+            {
+                coords: [6.524379, 3.379206],
+                name: "Lagos"
+            },
+            {
+                coords: [35.689487, 139.691711],
+                name: "Tokyo"
+            },
+            {
+                coords: [23.129110, 113.264381],
+                name: "Guangzhou"
+            },
+            {
+                coords: [40.7127837, -74.0059413],
+                name: "New York"
+            },
+            {
+                coords: [34.052235, -118.243683],
+                name: "Los Angeles"
+            },
+            {
+                coords: [41.878113, -87.629799],
+                name: "Chicago"
+            },
+            {
+                coords: [51.507351, -0.127758],
+                name: "London"
+            },
+            {
+                coords: [40.416775, -3.703790],
+                name: "Madrid "
+            }
+            ];
+            var map = new jsVectorMap({
+                map: "world",
+                selector: "#world_map",
+                zoomButtons: true,
+                markers: markers,
+                markerStyle: {
+                    initial: {
+                        r: 9,
+                        strokeWidth: 7,
+                        stokeOpacity: .4,
+                        fill: window.theme.primary
+                    },
+                    hover: {
+                        fill: window.theme.primary,
+                        stroke: window.theme.primary
+                    }
+                },
+                zoomOnScroll: false
+            });
+            window.addEventListener("resize", () => {
+                map.updateSize();
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var date = new Date(Date.now());
+            var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+            document.getElementById("datetimepicker-dashboard").flatpickr({
+                inline: true,
+                prevArrow: "<span title=\"Previous month\">&laquo;</span>",
+                nextArrow: "<span title=\"Next month\">&raquo;</span>",
+                defaultDate: defaultDate
+            });
+        });
+    </script>
+    <script src="/assets/js/simple-datatables.js"></script>
+</body>
+
+</html>
